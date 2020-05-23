@@ -4,7 +4,7 @@ import React, { Component } from "react";
 class TableList extends React.Component {
     render() {
     return(
-      <div><
+      <div>
         <Iframe url="https://eyeshu98.grafana.net/d/Wmsy-HRGz/query?orgId=1"
           width="100%"
           height="1000"

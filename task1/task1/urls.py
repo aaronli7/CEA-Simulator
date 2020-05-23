@@ -17,10 +17,14 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.conf.urls import include
 from maps_app import views
+import output
 
 
 urlpatterns = [
     url(r'^$',views.index,name='index'),
+    url(r'^$',views.home_view,name='home_view'),
     url(r'^maps_app/',include('maps_app.urls')),
     url(r'^admin/', admin.site.urls),
+    url(r'^output/',include('output.urls')),
+
 ]

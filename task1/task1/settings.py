@@ -18,6 +18,7 @@ TEMPLATE_DIR = os.path.join(BASE_DIR,"templates")
 STATIC_DIR = os.path.join(BASE_DIR,"static")
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
 STATIC_JSON = os.path.join(STATIC_ROOT,'task1/static/geodata.json')
+OUTPUT_DIR = os.path.join(BASE_DIR,"output")
 INFLUXDB_HOST = 'influxdb'
 INFLUXDB_PORT = 8086
 INFLUXDB_USERNAME = None

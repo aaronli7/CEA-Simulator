@@ -44,19 +44,19 @@ The above copyright notice and this permission notice shall be included in all c
             <div class="sidebar-wrapper">
                 <div class="logo">
                     <a href="http://www.creative-tim.com" class="simple-text logo-mini">
-                        Ct
+                        TS
                     </a>
                     <a href="http://www.creative-tim.com" class="simple-text logo-normal">
-                        Creative Tim
+                      Tomato Simulator
                     </a>
                 </div>
                 <div class="user">
                     <div class="photo">
-                        <img src="../../assets/img/default-avatar.png" />
+                        <img src="{% static "images/tom.jpg" %}" />
                     </div>
                     <div class="info ">
                         <a data-toggle="collapse" href="#collapseExample" class="collapsed">
-                            <span>Simular
+                            <span>Simulator
                                 <b class="caret"></b>
                             </span>
                         </a>
@@ -396,14 +396,14 @@ The above copyright notice and this permission notice shall be included in all c
                         <div class="col-md-12">
                             <div class="card regular-table-with-color">
                                 <div class="card-header ">
-                                    <h4 class="card-title">Solar Radiation Data</h4>
-                                    <p class="card-category">Solar Data for the specified date range</p>
+                                    <h4 class="card-title">Tomatoes Truss Growth</h4>
+                                    <p class="card-category">The Trend of Tomato truss growth</p>
                                 </div>
-                                <div class="card-body table-full-width table-responsive">
-                                    <table class="table table-hover">
+                                <div class="card-body table-full-width table-responsive" id=datatable>
+                                    <!-- <table class="table table-hover">
                                       <thead>
                                           <th>Time</th>
-                                          <th>Day</th>
+
 
                                           <th>GHI</th>
 
@@ -413,20 +413,31 @@ The above copyright notice and this permission notice shall be included in all c
                                       <tr>
 
                                         <td>{{ r.time }}</td>
-                                        <td>{{ r.day }}</td>
-                                        <!-- <td>{{ r.date }}</td> -->
                                         <td>{{ r.ghi }}</td>
+
 
                                       </tr>
                                       {% endfor %}
                                       {% endfor %}
-                                    </table>
+                                    </table> -->
+
+
 
                                 </div>
                             </div>
                         </div>
+                        <!-- <iframe src="http://localhost:3000/d/iLYXNoRMk/query1?orgId=1" id="graph"></iframe> -->
                         <!-- <button class="btn btn-primary btn-wd" style="display: block; margin: 0 auto;" onclick="shoot()">Run Simulation</button> -->
-                        <input type="button" class="btn btn-primary btn-wd" value="Run Simulation" style="display: block; margin: 0 auto;" onclick="shoot()" />
+                        <button class="btn btn-primary btn-wd"  id="graph1" style="display: block; margin: 0 auto;" onclick="iframedisplay({{epochstart}},{{epochend}})" >Run Simulation</button>
+                        <script >
+                        function iframedisplay(epochstart,epochend){
+                          // if(!$('#iframe').length){
+                            var urlpath='http://localhost:3000/d/iLYXNoRMk/query1?from='+epochstart+'&to='+epochend+'&orgId=1';
+                            $('#iframeHolder').html('<iframe id="iframe" src="'+urlpath+'" width="100%" height="1000"></iframe>');
+                          // }
+                        }
+                        </script>
+                        <div id="iframeHolder"></div>
                     </div>
                 </div>
 
@@ -530,8 +541,9 @@ The above copyright notice and this permission notice shall be included in all c
             </li>
         </ul>
     </div>
+    <div id="testDiv"></div>
 </div>
- -->
+
 </body>
 <!--   Core JS Files   -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
@@ -574,8 +586,42 @@ The above copyright notice and this permission notice shall be included in all c
 <script src="{%static "js/light-bootstrap-dashboard.js" %}" type="text/javascript"></script>
 <!-- Light Dashboard DEMO methods, don't include it in your project! -->
 <script src="{%static "js/demo.js" %}"></script>
-<script type="module" src="{%static "js/iframe.pack.js" %}" ></script>
+
 <script src="https://unpkg.com/react@16.4.1/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@16.4.1/umd/react-dom.production.min.js"></script>
+<!-- <script type="text/javascript" src="{%static "js/iframe.js" %}" ></script> -->
+<!-- <script type="module" src="{%static "js/test.js" %}" ></script> -->
+<script>
+$(document).ready(function(){
+  $.ajax({
+   url:"{%static "tomsim_FruitDev.csv" %}",
+   dataType:"text",
+   success:function(data)
+   {
+    var radiation_data = data.split(/\r?\n|\r/);
+    var table_data = '<table class="table table-hover">';
+    for(var count = 0; count<radiation_data.length; count++)
+    {
+     var cell_data = radiation_data[count].split(",");
+     table_data += '<tr>';
+     for(var cell_count=0; cell_count<cell_data.length; cell_count++)
+     {
+      if(count === 0)
+      {
+       table_data += '<th>'+cell_data[cell_count]+'</th>';
+      }
+      else
+      {
+       table_data += '<td>'+cell_data[cell_count]+'</td>';
+      }
+     }
+     table_data += '</tr>';
+    }
+    table_data += '</table>';
+    $('#datatable').html(table_data);
+   }
+  });
+});
+</script>
 
 </html>
