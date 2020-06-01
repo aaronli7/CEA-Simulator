@@ -2,6 +2,10 @@ import configparser, json, csv, math, sys, os
 import shutil
 import zipfile
 from os.path import join, getsize
+import pandas as pd
+import numpy as np
+from IPython.display import display
+from influxdb import InfluxDBClient
 
 # compress all the file into zip
 def zip_file():
@@ -21,7 +25,162 @@ PI = 3.141592654
 LAT = 52
 IAGE = [0] * 75
 
+def adddatatodb():
+    client = InfluxDBClient(host='localhost', port=8086)
+    client.switch_database('db1')
 
+    df1 = pd.read_csv('static/tomsim_distri.csv')
+    df2 = pd.read_csv('static/tomsim_FruitDev.csv')
+    df3 = pd.read_csv('static/tomsim_growth.csv')
+
+    for row_index, r in df1.iterrows():
+        json_body = [
+            {
+                "measurement": "tomsim_distri",
+
+                "tags": {
+
+                    "GTWOLD": r[5],
+                    "WTW": r[6],
+                    "WLV": r[7],
+                    "WST": r[8],
+                    "WSO": r[9],
+                    "BUFFER": r[10],
+                    "NRVEGUNITS": r[14],
+                    "TRUSS_1": r[15],
+                    "TRUSS_2": r[16],
+                    "TRUSS_3": r[17],
+                    "TRUSS_4": r[18],
+                    "TRUSS_5": r[19],
+                    "TRUSS_6": r[20],
+                    "TRUSS_7": r[21],
+                    "TRUSS_8": r[22],
+                    "TRUSS_9": r[23],
+                    "TRUSS_10": r[24],
+                    "TRUSS_11": r[25],
+                    "TRUSS_12": r[26],
+                    "TRUSS_13": r[27],
+                    "TRUSS_14": r[28],
+                    "TRUSS_15": r[29],
+                    "TRUSS_16": r[30],
+                    "TRUSS_17": r[31],
+                    "TRUSS_18": r[32],
+                    "TRUSS_19": r[33],
+                    "TRUSS_20": r[34],
+                    "TRUSS_21": r[35],
+                    "TRUSS_22": r[36],
+                    "TRUSS_23": r[37],
+                    "TRUSS_24": r[38],
+                    "TRUSS_25": r[39],
+                    "TRUSS_26": r[40],
+                    "TRUSS_27": r[41],
+                    "TRUSS_28": r[42],
+                    "TRUSS_29": r[43],
+                    "TRUSS_30": r[44],
+                    "TRUSS_31": r[45],
+                    "TRUSS_32": r[46],
+                    "TRUSS_33": r[47],
+                    "TRUSS_34": r[48],
+                    "TRUSS_35": r[49],
+                    "WTRUSS_615": r[50],
+                    "WVEGUNIT_1": r[51],
+                    "WVEGUNIT_2": r[52],
+                    "WVEGUNIT_3": r[53],
+                    "WVEGUNIT_4": r[54],
+                    "WVEGUNIT_5": r[55],
+                    "WVEGUNIT_6": r[56],
+                    "WVEGUNIT_7": r[57],
+                    "WVEGUNIT_8": r[58],
+                    "WVEGUNIT_9": r[59],
+                     "WVEGUNIT_10": r[60],
+                    "WVEGUNIT_11": r[61],
+                    "WVEGUNIT_12": r[62],
+                    "WVEGUNIT_13": r[63],
+                    "WVEGUNIT_14": r[64],
+                    "WVEGUNIT_15": r[65],
+                    "WVEGUNIT_16": r[66]
+
+
+                 },
+
+                "fields": {
+                    "JDAY": r[0],
+                    "FRVEG": r[1],
+                    "TOTALVEG": r[2],
+                    "TOTAL": r[3],
+                    "SLA": r[4],
+                    "TRNR": r[11],
+                    "TMPA": r[12],
+                    "CO2": r[13]
+                },
+            }
+         ]
+
+        client.write_points(json_body, time_precision='s')
+    for row_index, r in df2.iterrows():
+        json_body = [
+            {
+                "measurement": "tomsim_FruitDev",
+
+                "tags": {
+
+
+                    "AVTEMP": r[2],
+                     "IAGE": r[3]
+
+                 },
+
+                "fields": {
+                    "JDAY": r[1],
+                    "TRNR": r[0]
+                },
+            }
+         ]
+
+        client.write_points(json_body, time_precision='s')
+    for row_index, r in df3.iterrows():
+        json_body = [
+            {
+                "measurement": "tomsim_growth",
+
+                "tags": {
+
+                    "AVRAD": r[1],
+                    "TEMP": r[2],
+                    "CO2": r[3],
+                    "FGMAX": r[4],
+                    "EFF": r[5],
+                    "LAI": r[7],
+                    "GPHOT": r[8],
+                    "RGR_AV": r[9],
+                    "MAINT": r[10],
+                    "GTW": r[11],
+                    "WTW": r[12],
+                    "WTW-WRT": r[13],
+                    "WLV": r[14],
+                    "WLV+WST": r[15],
+                    "WSO": r[16],
+                    "WRT": r[17],
+                    "WLVE": r[18],
+                    "WSTE": r[19],
+                    "WSOE": r[20],
+                    "DPARDF": r[21],
+                    "DPARDR": r[22]
+
+
+                 },
+
+                "fields": {
+                    "JDAY": r[0],
+                    "SLA": r[6],
+                    "TRNR": r[12],
+                    "TMPA": r[13],
+                    "CO2": r[14]
+                },
+            }
+         ]
+
+        client.write_points(json_body, time_precision='s')
 
 class Simulator:
     # simulator attributes
@@ -678,7 +837,7 @@ class Simulator:
         if day < self.STTRU:
             FR = 0
         else:
-            print('TMPA', TMPA)
+            # print('TMPA', TMPA)
             FR = (-0.2863 + 0.1454 * math.log(TMPA))* self.CORFR
 
         self.initial_truss = self.initial_truss + FR
@@ -1029,15 +1188,15 @@ class Simulator:
         for i in range(30):
             GEMEIND1 += self.WTRUSS[i]/30
         GEMEIND1 = GEMEIND1 / self.PLDENS / self.NRFRT / self.CORNRFRTS
-        fruitdev_writer.writerow(['average final truss DW 1-30', round(GEMEIND1, 2)])
+        fruitdev_writer.writerow(['Avg final truss DW 1-30', round(GEMEIND1, 2)])
         ITRUSS = int(self.initial_truss)
         GEMEIND2 = 0
-        fruitdev_writer.writerow(['final truss number:', ITRUSS])
+        fruitdev_writer.writerow(['Final truss number', ITRUSS])
 
         for i in range(ITRUSS):
             GEMEIND2 += self.WTRUSS[i]/ITRUSS
         GEMEIND2 = GEMEIND2 / self.PLDENS/ self.NRFRT / self.CORNRFRTS
-        fruitdev_writer.writerow(['average truss DW based on truss-number:', GEMEIND2])
+        fruitdev_writer.writerow(['Avg truss DW', GEMEIND2])
 
 
         f_fruitdev.close()

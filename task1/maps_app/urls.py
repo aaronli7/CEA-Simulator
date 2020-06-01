@@ -8,5 +8,6 @@ import json
 urlpatterns = [
     url(r'^$',views.index,name='index'),
     url(r'^$',views.home_view,name='home_view'),
+    url(r'grafana/', views.grafana, name='grafana')
     # url(r'^$',views.table,name='table'),
 ]

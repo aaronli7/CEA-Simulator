@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 import json
+import six
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR,"templates")
@@ -25,6 +26,7 @@ INFLUXDB_USERNAME = None
 INFLUXDB_PASSWORD = None
 INFLUXDB_DATABASE = 'db1'
 INFLUXDB_TIMEOUT = 10
+# COMPRESS_ENABLED = True
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
@@ -46,7 +48,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'maps_app'
+    'maps_app',
+    # 'compressor'
 ]
 
 MIDDLEWARE = [
@@ -123,11 +126,18 @@ USE_L10N = True
 
 USE_TZ = True
 
+# COMPRESS_PRECOMPILERS = (
+#     ('text/x-scss', 'django_libsass.SassCompiler'),
+# )
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+# STATICFILES_FINDERS = [
+#     'compressor.finders.CompressorFinder'
+# ]
 STATICFILES_DIRS = [
     STATIC_DIR,
 ]

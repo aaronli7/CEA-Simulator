@@ -13,59 +13,9 @@
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
   <!-- CSS Files -->
-  <link href="{% static "css/table.css" %}" rel="stylesheet" />
   <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet" />
   <link href="{% static "css/light-bootstrap-dashboard.css" %}" rel="stylesheet" />
-
-
-  <style>
-  .tableWrap {
-  height: 200px;
-  /* border: 2px solid black; */
-  overflow: auto;
-  height: 400px;
-}
-
-thead tr th {
-  position: sticky;
-  top: 0;
-}
-
-table {
- border-collapse: collapse;
-}
-
-
-th {
-  padding: 16px;
-  padding-left: 15px;
-  border-left: 1px dotted rgba(200, 209, 224, 0.6);
-  border-bottom: 1px solid #e8e8e8;
-  background: #ffc491;
-  text-align: left;
-  box-shadow: 0px 0px 0 2px #e8e8e8;
-}
-
-table {
-  width: 100%;
-  font-family: sans-serif;
-}
-table td {
-  padding: 16px;
-}
-tbody tr {
-  /* border-bottom: 2px solid #e8e8e8; */
-}
-thead {
-  font-weight: 500;
-  color: rgba(0, 0, 0, 0.85);
-}
-tbody tr:hover {
-  background: #e6f7ff;
-}
-      </style>
 </head>
 
 <body>
@@ -79,7 +29,7 @@ tbody tr:hover {
               <img src="{% static "images/tom.jpg" %}"/>
             </div>
           </a>
-          <a href="" class="simple-text logo-normal">
+          <a href="http://www.creative-tim.com" class="simple-text logo-normal">
             TOMATO SIMULATOR
           </a>
         </div>
@@ -120,7 +70,7 @@ tbody tr:hover {
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="{% url "grafana" %}">
+            <a class="nav-link" href="./calendar.html">
               <i class="fa fa-fw fa-line-chart"></i>
               <p>Grafana</p>
             </a>
@@ -138,7 +88,7 @@ tbody tr:hover {
                 <i class="fa fa-navicon visible-on-sidebar-mini"></i>
               </button>
             </div>
-            <a class="navbar-brand" href="#pablo"> Simulator Table </a>
+            <a class="navbar-brand" href="#pablo"> Grafana </a>
           </div>
           <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar burger-lines"></span>
@@ -210,41 +160,54 @@ tbody tr:hover {
         </div>
       </nav>
       <!-- End Navbar -->
-      <div class="main-content">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-9">
-              <div class="card">
-                <div class="header">
-                  <h4 class="card-title">Tomatoes Truss Growth</h4>
-                  <p class="card-category">The Trend of Tomato truss growth</p>
-                </div>
-                <div class="content table-responsive table-full-width " id="datatable">
-                  <!-- <div class="tableWrap">
-                  </div> -->
-                </div>
+      <!-- <div class="card-body ">
+      <div class="form-group">
+        <div class="row">
+          <form id="dateform"  method="GET">
+            <!-- <label for="date">DATE(FROM)</label> -->
+                <!-- <label>Location ID  :</label>
+                <span>
+                  <input class="slide-up" type="date" id="datefrom" name="datefrom" placeholder="DATE" required>
+                  <label for="date">FROM</label>
+                </span>
+                <!-- <label for="date">DATE(TO)  :</label>
+                <span>
+                  <input class="slide-up" type="date" id="dateto" name="dateto" placeholder="DATE" required>
+                  <label for="date">TO</label>
+                </span>
+                <!-- <input class="btn btn-round btn-sm" style="text-align:center;" type="submit" value="send">
+                </form>
               </div>
             </div>
-            <div class="col-md-3" id="enddata">
+            </div> -->
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card ">
+                  <div class="card-body ">
+                    <div id="iframeHolder"></div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
 
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 <!-- <iframe src="http://localhost:3000/d/iLYXNoRMk/query1?orgId=1" id="graph"></iframe> -->
 <!-- <button class="btn btn-primary btn-wd" style="display: block; margin: 0 auto;" onclick="shoot()">Run Simulation</button> -->
 <script >
-function iframedisplay(epochstart,epochend){
-  // if(!$('#iframe').length){
-  var urlpath='http://localhost:3000/d/iLYXNoRMk/query1?from='+epochstart+'&to='+epochend+'&orgId=1';
+window.onload = function(){
+  var urlpath='http://localhost:3000/d/iLYXNoRMk/query1?from=1388552400000&to=1420088399000&orgId=1';
   $('#iframeHolder').html('<iframe id="iframe" src="'+urlpath+'" width="100%" height="1000"></iframe>');
-  // }
+
 }
 </script>
 <div id="iframeHolder"></div>
 </div>
 </div>
+
+
+
+
+
+
 
 </body>
 <!--   Core JS Files   -->
@@ -293,69 +256,6 @@ function iframedisplay(epochstart,epochend){
 <script src="https://unpkg.com/react-dom@16.4.1/umd/react-dom.production.min.js"></script>
 <!-- <script type="text/javascript" src="{%static "js/iframe.js" %}" ></script> -->
 <!-- <script type="module" src="{%static "js/test.js" %}" ></script> -->
-<script>
-$(document).ready(function(){
-  $.ajax({
-    url:"{%static "tomsim_FruitDev.csv" %}",
-    dataType:"text",
-    success:function(data)
-    {
-      var radiation_data = data.split(/\r?\n|\r/);
-      var table_data = '<div class="tableWrap"><table>';
-      var i=0;
-      for(var count = 0; count<radiation_data.length-4; count++)
-      {
-        var cell_data = radiation_data[count].split(",");
-        if(count === 1)
-        {
-          table_data += '</thead><tbody >';
-        }
-        if(i !== 0)
-        table_data += '<tr>';
 
-        for(var cell_count=0; cell_count<cell_data.length; cell_count++)
-        {
-          if(count === 0)
-          {
-            if(i === 0){
-              table_data += '<thead><tr>';
-            }
-            table_data += '<th>'+cell_data[cell_count]+'</th>';
-            i=i+1;
-          }
-
-          else
-          {
-            table_data += '<td>'+cell_data[cell_count]+'</td>';
-          }
-        }
-        table_data += '</tr>';
-      }
-      table_data += '</tbody></table></div>';
-      $('#datatable').html(table_data);
-
-     }
-  });
-});
-$(document).ready(function(){
-  $.ajax({
-    url:"{%static "tomsim_FruitDev.csv" %}",
-    dataType:"text",
-    success:function(data)
-    {
-      var radiation_data = data.split(/\r?\n|\r/);
-      var end_data='';
-      for(var count = radiation_data.length-4; count<radiation_data.length-1; count++){
-        var cell_data = radiation_data[count].split(",");
-        var cell_count=0;
-          end_data += '<span><input type="textarea" placeholder="'+cell_data[cell_count]+' : '+cell_data[cell_count+1]+'" readonly></span>'
-
-     }
-     console.log(end_data);
-     $('#enddata').html(end_data);
-   }
-  });
-});
-</script>
 
 </html>

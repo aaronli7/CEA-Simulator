@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from maps_app.simulator import Simulator, zip_file
+from maps_app.simulator import Simulator, zip_file, adddatatodb
 import sys,os
 
 # The parameters from frontend:
@@ -40,6 +40,7 @@ class sim:
         # compress output file
         # zip_file('/Users/aran-lq/CEAsimulator/mysite/server/static/output/')
         zip_file()
+        adddatatodb()
 
     def getFinalTruss():
         return tom_sim.initial_truss
