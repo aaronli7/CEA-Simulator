@@ -303,7 +303,7 @@ $(document).ready(function(){
       var radiation_data = data.split(/\r?\n|\r/);
       var table_data = '<div class="tableWrap"><table>';
       var i=0;
-      for(var count = 0; count<radiation_data.length-4; count++)
+      for(var count = 0; count<radiation_data.length; count++)
       {
         var cell_data = radiation_data[count].split(",");
         if(count === 1)
