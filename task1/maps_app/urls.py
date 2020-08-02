@@ -7,7 +7,11 @@ import json
 
 urlpatterns = [
     url(r'^$',views.index,name='index'),
-    url(r'^$',views.home_view,name='home_view'),
-    url(r'grafana/', views.grafana, name='grafana')
+    url(r'grafana/', views.grafana, name='grafana'),
+    url(r'home/', views.home, name='home'),
+    url(r'register/', views.register, name='register'),
+    url(r'mappage/', views.mappage, name='mappage'),
+    url(r'mainpage/', views.mainpage, name='mainpage'),
+    url(r'page2/', views.page2, name='page2')
     # url(r'^$',views.table,name='table'),
 ]

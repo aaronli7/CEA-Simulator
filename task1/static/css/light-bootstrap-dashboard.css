@@ -943,8 +943,8 @@ input:focus {
 }
 
 .main-panel .content {
-    /* padding: 0px 0px; */
-    /* min-height: calc(100vh - 123px); */
+    padding: 30px 15px;
+     min-height: calc(100vh - 123px);
 }
 
 .main-panel .footer {

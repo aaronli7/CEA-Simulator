@@ -14,8 +14,8 @@ df=pd.read_csv('Final.csv')
 for row_ind, r in df.iterrows():
     lat = r[1]
     lon = r[2]
-    year = '2014'
-    api_key = 'q2NPd9Kwya8zJjjguq0Hwl8Dovn3GU8wk0HldbpX'
+    year = '2000'
+    api_key = 'GC62hGC8ZaBlBtxNC436G5NALgspbFTY5Uo3Rb59'
     attributes = 'ghi,dhi,dni,wind_speed,air_temperature,solar_zenith_angle'
     leap_year = 'false'
     interval = '60'
@@ -25,8 +25,7 @@ for row_ind, r in df.iterrows():
     your_affiliation = 'my+UGA'
     your_email = 'aishwaryavenkatraj@gmail.com'
     mailing_list = 'true'
-    apiweather = '6e8d1092b595df64eaa6ca144eef1662'
-    dfsolar = pd.read_csv('http://developer.nrel.gov/api/solar/nsrdb_psm3_download.csv?wkt=POINT({lon}%20{lat})&names={year}&leap_day={leap}&interval={interval}&utc={utc}&full_name={name}&email={email}&affiliation={affiliation}&mailing_list={mailing_list}&reason={reason}&api_key={api}&attributes={attr}'.format(year=year, lat=lat, lon=lon, leap=leap_year, interval=interval, utc=utc, name=your_name, email=your_email, mailing_list=mailing_list, affiliation=your_affiliation, reason=reason_for_use, api=api_key, attr=attributes), skiprows=2)
+    dfsolar = pd.read_csv('https://developer.nrel.gov/api/solar/nsrdb_psm3_download.csv?wkt=POINT({lon}%20{lat})&names={year}&leap_day={leap}&interval={interval}&utc={utc}&full_name={name}&email={email}&affiliation={affiliation}&mailing_list={mailing_list}&reason={reason}&api_key={api}&attributes={attr}'.format(year=year, lat=lat, lon=lon, leap=leap_year, interval=interval, utc=utc, name=your_name, email=your_email, mailing_list=mailing_list, affiliation=your_affiliation, reason=reason_for_use, api=api_key, attr=attributes), skiprows=2)
     dfsolar = dfsolar.set_index(pd.date_range('1/1/{yr}'.format(yr=year), freq=interval+'Min', periods=525600/int(interval)))
     dfsolar.index.names = ["Timestamp"]
     dfsolar.reset_index(drop=False, level='Timestamp', inplace=True)
@@ -41,7 +40,10 @@ for row_ind, r in df.iterrows():
         timestamp = ts.replace('.0', '')
         timestamp = timestamp
         #print(timestamp)
-        dbname = r[0]
+        db = str(r[0])
+        dbname = db.replace('.0', '_')
+        dbname = dbname + str(year)
+        # print(dbname)
         fmt = '%Y-%m-%d'
         date = row[12]
         dt = datetime.strptime(str(date), fmt)
@@ -71,7 +73,8 @@ for row_ind, r in df.iterrows():
                 "fields": {
 
                     "ghi": row[6],
-                     "day": day,
+                     "jday": day,
+                    "day" : row[3],
                     "month": row[2],
                     "year": row[1],
                      "hour": row[4],

@@ -201,7 +201,7 @@ body:after {
   -moz-transition: opacity 0.2s;
   -o-transition: opacity 0.2s;
   transition: opacity 0.2s;
-}
+} 
 .lb-data .lb-close:hover {
   cursor: pointer;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
@@ -209,10 +209,10 @@ body:after {
 }
 @media screen and (max-width: 320px){
 .lb-data .lb-details {
-    width: 89%;
+    width: 89%; 
     margin-top: 1em;
 }
 .lb-data .lb-caption {
-    font-size: 12px;
+    font-size: 12px;  
 }
 }

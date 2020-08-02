@@ -320,7 +320,7 @@ class Simulator:
         for rad_row in rad_data:
             for row in rad_row:
             # [num_day, num_hours, radiation] = [int(float(row[0])), int(float(row[1])), float(row[2])]
-                [num_day, num_hours, radiation] = [row['day'], row['hour'], row['ghi']]
+                [num_day, num_hours, radiation] = [row['jday'], row['hour'], row['ghi']]
                 if num_hours == 0:
                     global_sum = 0
                     TG = 0

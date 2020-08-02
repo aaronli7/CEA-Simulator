@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 import json
 import six
+import pymysql
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR,"templates")
@@ -88,8 +89,12 @@ WSGI_APPLICATION = 'task1.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'Simulator',
+        'USER': 'dbadmin',
+        'PASSWORD': '12345',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
