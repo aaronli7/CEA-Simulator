@@ -292,7 +292,7 @@ body,
 }
 
 a {
-    color: #23CCEF;
+    color: #585858;
 }
 
 a:hover,
@@ -944,7 +944,7 @@ input:focus {
 
 .main-panel .content {
     padding: 30px 15px;
-     min-height: calc(100vh - 123px);
+     /* min-height: calc(100vh - 123px); */
 }
 
 .main-panel .footer {
@@ -2093,7 +2093,7 @@ fieldset[disabled] .btn-info.focus,
 fieldset[disabled] .btn-info:active,
 fieldset[disabled] .btn-info.active {
     background-color: transparent;
-    border-color: #23CCEF;
+    border-color: #56D25B;
 }
 
 .btn-info.btn-outline {

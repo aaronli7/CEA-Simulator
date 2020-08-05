@@ -25,18 +25,20 @@ PI = 3.141592654
 LAT = 52
 IAGE = [0] * 75
 
-def adddatatodb():
+def adddatatodb(username):
     client = InfluxDBClient(host='localhost', port=8086)
     client.switch_database('db1')
-
-    df1 = pd.read_csv('static/tomsim_distri.csv')
-    df2 = pd.read_csv('static/tomsim_FruitDev.csv')
-    df3 = pd.read_csv('static/tomsim_growth.csv')
-
+    username = username
+    df1 = pd.read_csv('static/'+username+'_distri.csv')
+    df2 = pd.read_csv('static/'+username+'_FruitDev.csv')
+    df3 = pd.read_csv('static/'+username+'_growth.csv')
+    t1 = username+'_distri'
+    t2 = username+'_FruitDev'
+    t3 = username+'_growth'
     for row_index, r in df1.iterrows():
         json_body = [
             {
-                "measurement": "tomsim_distri",
+                "measurement": t1,
 
                 "tags": {
 
@@ -120,7 +122,7 @@ def adddatatodb():
     for row_index, r in df2.iterrows():
         json_body = [
             {
-                "measurement": "tomsim_FruitDev",
+                "measurement": t2,
 
                 "tags": {
 
@@ -141,7 +143,7 @@ def adddatatodb():
     for row_index, r in df3.iterrows():
         json_body = [
             {
-                "measurement": "tomsim_growth",
+                "measurement": t3,
 
                 "tags": {
 
@@ -181,6 +183,8 @@ def adddatatodb():
          ]
 
         client.write_points(json_body, time_precision='s')
+
+
 
 class Simulator:
     # simulator attributes
@@ -1066,6 +1070,7 @@ class Simulator:
                       , self.WSO, self.WRT, self.WLVE, self.WSTE, self.WSOE, self.DPARDF/1000000, self.DPARDR/1000000]
             for i in range(len(datarow)):
                 datarow[i] = round(datarow[i],2)
+                # print("datarow", datarow[i])
             self.ICOUNT = 0
             writer.writerow(datarow)
 
@@ -1102,15 +1107,21 @@ class Simulator:
         self.ICOUNT1 += 1
 
 
-    def start_simulation(self):
+    def start_simulation(self, username):
         # pre-simulation
-        output_growth = os.path.abspath(os.path.join(os.getcwd(),'static/tomsim_growth.csv'))
-        output_distri = os.path.abspath(os.path.join(os.getcwd(),'static/tomsim_distri.csv'))
-        output_FruitDev = os.path.abspath(os.path.join(os.getcwd(),'static/tomsim_FruitDev.csv'))
+        self.username = str(username)
+        # print("username", username)
+        filename1 = 'static/'+username+'_growth.csv'
+        filename2 = 'static/'+username+'_distri.csv'
+        filename3 = 'static/'+username+'_FruitDev.csv'
+        output_growth = os.path.abspath(os.path.join(os.getcwd(),filename1))
+        output_distri = os.path.abspath(os.path.join(os.getcwd(),filename2))
+        output_FruitDev = os.path.abspath(os.path.join(os.getcwd(),filename3))
         f_growth = open(output_growth,'w',encoding='utf-8',newline="")
         f_distri = open(output_distri, 'w', encoding='utf-8', newline="")
         f_fruitdev = open(output_FruitDev, 'w', encoding='utf-8', newline="")
         growth_writer = csv.writer(f_growth)
+        # print("Growth Writerrr:", growth_writer)
         distri_writer = csv.writer(f_distri)
         fruitdev_writer = csv.writer(f_fruitdev)
 
@@ -1177,6 +1188,9 @@ class Simulator:
 
             # output during simulation
             self.printout_growth(growth_writer, AVRAD, CO2, TMPA, SLA, fruitdev_writer)
+
+
+             # print("Growth Writerrr:", growth_writer)
             GTWOLD = self.GTW
             self.printout_distri(distri_writer, SLA, GTWOLD, TMPA, CO2)
 

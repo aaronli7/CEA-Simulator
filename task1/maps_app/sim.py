@@ -2,6 +2,7 @@
 from maps_app.simulator import Simulator, zip_file, adddatatodb
 import sys,os
 
+
 # The parameters from frontend:
 # - result: json list {jday, hours, ghi}
 # - CO2
@@ -9,7 +10,9 @@ import sys,os
 # - start_jday
 # - end_jday
 class sim:
-    def start(self, co2, temp, result, start_jday, end_jday):
+
+    def start(self,user, co2, temp, result, start_jday, end_jday):
+        username = user
         CO2 = co2
         temp = temp
         result = result
@@ -35,12 +38,14 @@ class sim:
         tom_sim.read_radiation()
 
         # simulation start
-        tom_sim.start_simulation()
+        tom_sim.start_simulation(username)
 
         # compress output file
         # zip_file('/Users/aran-lq/CEAsimulator/mysite/server/static/output/')
         zip_file()
-        adddatatodb()
+
+
+        adddatatodb(username)
 
     def getFinalTruss():
         return tom_sim.initial_truss

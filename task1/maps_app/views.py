@@ -8,6 +8,8 @@ from datetime import datetime
 from maps_app.sim import sim
 import pymysql
 import json
+import csv
+
 
 client = InfluxDBClient(host='localhost', port=8086)
 client.switch_database('db1')
@@ -20,9 +22,27 @@ def index(request):
 def mainpage(request):
     return render(request,'maps_app/mainpage.html')
 
+def chart(request):
+    return render(request,'maps_app/chart.html')
+
+def table1(request):
+    user = str(request.user)
+    return render(request,'maps_app/table1.html',{'username':user})
+
+def table2(request):
+    user = str(request.user)
+    return render(request,'maps_app/table2.html',{'username':user})
+
+def energymodel(request):
+    return render(request,'maps_app/energymodel.html')
+
+def energysupply(request):
+    return render(request,'maps_app/energysupply.html')
+
 def mappage(request):
     data_from_web_page = request.GET
     if data_from_web_page.__contains__('locationid'):
+        user = str(request.user)
         date_from = data_from_web_page.get('datefrom')
         year_from = getyear(date_from)
         date_from_julian = converttojulian(date_from)
@@ -51,10 +71,89 @@ def mappage(request):
         epochend = max(timeSeriesEpoch)*1000
         start_jday = min(jday)
         end_jday = max(jday)
-        sim_obj.start(co2, temperature, result, start_jday,end_jday)
-        resp =render(request,'maps_app/table.html',{'result': result,'epochstart': epochstart , 'epochend' : epochend})
+        sim_obj.start(user, co2, temperature, result, start_jday,end_jday)
+
+        pytojsfruit = pythontojsfruit(user)
+        pytojsgrowth = pythontojsgrowth(user)
+        # print(pytojs)
+
+        resp =render(request,'maps_app/chart.html',{'result': result,'username':user, 'pytojsfruit':pytojsfruit, 'pytojsgrowth':pytojsgrowth, 'temp':temperature, 'co2':co2})
         return resp
     return render(request, "maps_app/mappage.html")
+
+
+def pythontojsfruit(user):
+    filename = "static/"+user+"_FruitDev.csv"
+
+    # initializing the titles and rows list
+    fields = []
+    rows = []
+
+    # reading csv file
+    with open(filename, 'r') as csvfile:
+        # creating a csv reader object
+        csvreader = csv.reader(csvfile)
+
+        # extracting field names through first row
+        fields = next(csvreader)
+
+        # extracting each data row one by one
+        for row in csvreader:
+            rows.append(row)
+
+
+    # print('Field 1 : '+fields[0])
+    # print('Field 2 : '+fields[1])
+
+    datapoints = "["
+
+    for row in rows[:-3]:
+        datapoints+="["
+        for col in row[:2]:
+            datapoints+=col + ","
+        datapoints = datapoints[:-1]
+        datapoints+="],"
+    datapoints = datapoints[:-1]
+    datapoints+="]"
+
+    # print(datapoints)
+    return datapoints
+
+def pythontojsgrowth(user):
+    filename = "static/"+user+"_growth.csv"
+
+    # initializing the titles and rows list
+    fields = []
+    rows = []
+
+    # reading csv file
+    with open(filename, 'r') as csvfile:
+        # creating a csv reader object
+        csvreader = csv.reader(csvfile)
+
+        # extracting field names through first row
+        fields = next(csvreader)
+
+        # extracting each data row one by one
+        for row in csvreader:
+            rows.append(row)
+
+    print('Field 1 : '+fields[0])
+    print('Field 2 : '+fields[1])
+
+    datapoints = "["
+
+    for row in rows[:-3]:
+        datapoints+="["
+        for col in row[:2]:
+            datapoints+=col + ","
+        datapoints = datapoints[:-1]
+        datapoints+="],"
+    datapoints = datapoints[:-1]
+    datapoints+="]"
+
+    # print(datapoints)
+    return datapoints
 
 
 def converttojulian(date):

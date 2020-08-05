@@ -1,0 +1,413 @@
+
+<!DOCTYPE html>
+{% load static %}
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="{% static "images/logoimg.jpeg" %}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Simulator</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+    <!-- CSS Files -->
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet" />
+    <link href="{% static "css/light-bootstrap-dashboard.css" %}" rel="stylesheet" />
+
+     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+     <script type="text/javascript" src="https://unpkg.com/papaparse@5.2.0/papaparse.min.js"></script>
+
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="sidebar">
+            <div class="sidebar-wrapper">
+                <div class="logo">
+                  <a href="" class="simple-text logo-mini">
+                    <div class="logo-img">
+                      <img src="{% static "images/logoimg.jpeg" %}"/>
+                    </div>
+                  </a>
+                  <a href="" class="simple-text logo-normal">
+                    CEA SIMULATOR
+                  </a>
+                </div>
+                <div class="user">
+                    <div class="photo">
+                        <img src="{% static "images/s.jpeg" %}" />
+                    </div>
+                    <div class="info ">
+                        <a data-toggle="collapse" href="#collapseExample" class="collapsed">
+                            <span>Simulator
+                                <b class="caret"></b>
+                            </span>
+                        </a>
+                        <div class="collapse" id="collapseExample">
+                            <ul class="nav">
+                                <li>
+                                    <a class="profile-dropdown" href="#pablo">
+                                        <span class="sidebar-mini">MP</span>
+                                        <span class="sidebar-normal">My Profile</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <ul class="nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url "mainpage" %}">
+                      <i class="fa fa-fw fa-home"></i>
+                      <p>Home</p>
+                    </a>
+                  </li>
+                  <li class="nav-item ">
+                    <a class="nav-link" href="{% url "mappage" %}">
+                      <i class="fa fa-toggle-right"></i>
+                      <p>CROP GROWTH</p>
+                    </a>
+                  </li>
+                  <li class="nav-item ">
+                    <a class="nav-link" href="{% url "energymodel" %}">
+                      <i class="fa fa-line-chart"></i>
+                      <p>ENERGY MODEL</p>
+                    </a>
+                  </li>
+                  <li class="nav-item ">
+                    <a class="nav-link" href="{% url "energysupply" %}">
+                      <i class="fa fa-industry"></i>
+                      <p>ENERGY SUPPLY</p>
+                    </a>
+                  </li>
+                </ul>
+            </div>
+        </div>
+        <div class="main-panel">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg ">
+                <div class="container-fluid">
+                    <div class="navbar-wrapper">
+                        <div class="navbar-minimize">
+                            <button id="minimizeSidebar" class="btn btn-warning btn-fill btn-round btn-icon d-none d-lg-block">
+                                <i class="fa fa-ellipsis-v visible-on-sidebar-regular"></i>
+                                <i class="fa fa-navicon visible-on-sidebar-mini"></i>
+                            </button>
+                        </div>
+                        <a class="navbar-brand" href="#pablo"> Data Chart</a>
+                    </div>
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-bar burger-lines"></span>
+                        <span class="navbar-toggler-bar burger-lines"></span>
+                        <span class="navbar-toggler-bar burger-lines"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-end">
+                        <ul class="nav navbar-nav mr-auto">
+                            <!-- <form class="navbar-form navbar-left navbar-search-form" role="search">
+                                <div class="input-group">
+                                    <i class="nc-icon nc-zoom-split"></i>
+                                    <input type="text" value="" class="form-control" placeholder="Search...">
+                                </div>
+                            </form> -->
+                        </ul>
+                        <ul class="navbar-nav">
+                            <li class="dropdown nav-item">
+                                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                                    <i class="nc-icon nc-planet"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Create New Post</a>
+                                    <a class="dropdown-item" href="#">Manage Something</a>
+                                    <a class="dropdown-item" href="#">Do Nothing</a>
+                                    <a class="dropdown-item" href="#">Submit to live</a>
+                                    <li class="divider"></li>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                </ul>
+                            </li>
+                            <li class="dropdown nav-item">
+                                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                                    <i class="nc-icon nc-bell-55"></i>
+                                    <span class="notification">5</span>
+                                    <span class="d-lg-none">Notification</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Notification 1</a>
+                                    <a class="dropdown-item" href="#">Notification 2</a>
+                                    <a class="dropdown-item" href="#">Notification 3</a>
+                                    <a class="dropdown-item" href="#">Notification 4</a>
+                                    <a class="dropdown-item" href="#">Notification 5</a>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="nc-icon nc-bullet-list-67"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" href="#">
+                                        <i class="nc-icon nc-email-85"></i> Messages
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="nc-icon nc-umbrella-13"></i> Help Center
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="nc-icon nc-settings-90"></i> Settings
+                                    </a>
+                                    <div class="divider"></div>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="nc-icon nc-lock-circle-open"></i> Lock Screen
+                                    </a>
+                                    <a href="#" class="dropdown-item text-danger">
+                                        <i class="nc-icon nc-button-power"></i> Log out
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- End Navbar -->
+            <div class="content" style="padding-top: 8px;">
+                <div class="container-fluid">
+                  <div class="container-fluid">
+                        <div class="row" style="margin-right: -15px; margin-left:-15px; box-sizing: inherit; margin-top:0px;">
+                            <div class="col-md-6" style="margin: 0px; padding-left:15px;padding-right:15px; box-sizing: inherit">
+                                <div class="card " style="width:90%;">
+                                    <div class="card-header ">
+                                        <h4 class="card-title">Tomato Growth</h4>
+                                        <p class="card-category">Crop Growth Pattern
+                                        <a class="nav-link" href="{% url "table1" %}" style="float:right;">
+                                          <i class="fa fa-fw fa-table"></i>
+                                        </a>
+                                        </p>
+                                    </div>
+                                    <div class="card-body " style="padding-left: 0px;">
+                                        <div id="graph1" class="ct-chart "></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6" style="margin: 0px; padding-left:15px;padding-right:15px; box-sizing: inherit; float: right;">
+                                <div class="card " style="width:90%;">
+                                    <div class="card-header ">
+                                        <h4 class="card-title">Global Radiation</h4>
+                                        <p class="card-category">Radiation limit for the period
+                                        <a class="nav-link" href="{% url "table2" %}" style="float:right;">
+                                              <i class="fa fa-fw fa-table"></i>
+                                            </a>
+                                            </p>
+                                    </div>
+                                    <div class="card-body " style="padding-left: 0px;">
+
+                                        <div id="graph2"  class="ct-chart "></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+    <!--
+
+
+
+
+
+
+<div class="fixed-plugin">
+    <div class="dropdown show-dropdown">
+        <a href="#" data-toggle="dropdown">
+            <i class="fa fa-cog fa-2x"> </i>
+        </a>
+
+        <ul class="dropdown-menu">
+			<li class="header-title"> Sidebar Style</li>
+            <li class="adjustments-line">
+                <a href="javascript:void(0)" class="switch-trigger">
+                    <p>Background Image</p>
+                    <label class="switch-image">
+                        <input type="checkbox" data-toggle="switch" checked="" data-on-color="info" data-off-color="info"><span class="toggle"></span>
+                    </label>
+                    <div class="clearfix"></div>
+                </a>
+            </li>
+            <li class="adjustments-line">
+                <a href="javascript:void(0)" class="switch-trigger">
+                    <p>Sidebar Mini</p>
+                    <label class="switch-mini">
+                        <input type="checkbox" data-toggle="switch" data-on-color="info" data-off-color="info">
+                        <span class="toggle"></span>
+                    </label>
+                    <div class="clearfix"></div>
+                </a>
+            </li>
+            <li class="adjustments-line">
+                <a href="javascript:void(0)" class="switch-trigger">
+                    <p>Fixed Navbar</p>
+                    <label class="switch-nav">
+                        <input type="checkbox" data-toggle="switch" data-on-color="info" data-off-color="info">
+                        <span class="toggle"></span>
+                    </label>
+                    <div class="clearfix"></div>
+                </a>
+            </li>
+            <li class="adjustments-line">
+                <a href="javascript:void(0)" class="switch-trigger background-color">
+                    <p>Filters</p>
+                    <div class="pull-right">
+                        <span class="badge filter badge-black" data-color="black"></span>
+                        <span class="badge filter badge-azure" data-color="azure"></span>
+                        <span class="badge filter badge-green" data-color="green"></span>
+                        <span class="badge filter badge-orange active" data-color="orange"></span>
+                        <span class="badge filter badge-red" data-color="red"></span>
+                        <span class="badge filter badge-purple" data-color="purple"></span>
+                    </div>
+                    <div class="clearfix"></div>
+                </a>
+            </li>
+            <li class="header-title">Sidebar Images</li>
+
+            <li class="active">
+                <a class="img-holder switch-trigger" href="javascript:void(0)">
+                    <img src="../assets/img/sidebar-1.jpg" alt="" />
+                </a>
+            </li>
+            <li>
+                <a class="img-holder switch-trigger" href="javascript:void(0)">
+                    <img src="../assets/img/sidebar-3.jpg" alt="" />
+                </a>
+            </li>
+            <li>
+                <a class="img-holder switch-trigger" href="javascript:void(0)">
+                    <img src="../assets/img/sidebar-4.jpg" alt="" />
+                </a>
+            </li>
+            <li>
+                <a class="img-holder switch-trigger" href="javascript:void(0)">
+                    <img src="../assets/img/sidebar-5.jpg" alt="" />
+                </a>
+            </li>
+
+            <li class="button-container">
+                <div>
+                    <a href="http://www.creative-tim.com/product/light-bootstrap-dashboard" target="_blank" class="btn btn-info btn-block">Get free demo!</a>
+                </div>
+            </li>
+
+            <li class="button-container">
+                <div>
+                    <a href="http://www.creative-tim.com/product/light-bootstrap-dashboard-pro" target="_blank" class="btn btn-warning btn-block btn-fill">Buy now!</a>
+                </div>
+            </li>
+
+            <li class="button-container">
+                <div>
+                    <a href="http://www.creative-tim.com/product/light-bootstrap-dashboard-pro/documentation/tutorial-components.html" target="_blank" class="btn btn-danger btn-block">Documentation</a>
+                </div>
+            </li>
+
+            <li class="header-title" id="sharrreTitle">Thank you for sharing!</li>
+
+            <li class="button-container">
+				<button id="twitter" class="btn btn-social btn-twitter btn-round sharrre"><i class="fa fa-twitter"></i> · 256</button>
+                <button id="facebook" class="btn btn-social btn-facebook btn-round sharrre"><i class="fa fa-facebook-square"> · 426</i></button>
+            </li>
+        </ul>
+    </div>
+</div>
+ -->
+</body>
+<!--   Core JS Files   -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+<!-- <script src="{%static "js/bootstrap.min.js" %}" type="text/javascript"></script> -->
+
+<!--  Chartist Plugin  -->
+<!-- <script src="{%static "js/plugins/chartist.min.js" %}"></script>
+<script src="{%static "js/demo.js" %}"></script> -->
+<!-- <script src="{%static "js/iframe.js" %}" type="text/javascript"></script> -->
+<!-- <script src="https://unpkg.com/react@16.4.1/umd/react.production.min.js"></script> -->
+<!-- <script src="https://unpkg.com/react-dom@16.4.1/umd/react-dom.production.min.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script> -->
+
+<script type="text/javascript">
+        var pytojs = "{{pytojsfruit}}";
+
+        // console.log('Username : '+user);
+        // console.log('PyToJS : '+pytojs);
+        // console.log('PyToJS type : '+typeof pytojs);
+        var pytojsArr = eval(pytojs);
+        // console.log('Array Type : '+ pytojsArr);
+
+
+  google.charts.load('current', {packages: ['corechart', 'line']});
+google.charts.setOnLoadCallback(drawBasic);
+
+function drawBasic() {
+
+      var data1 = new google.visualization.DataTable();
+      data1.addColumn('number', 'X');
+      data1.addColumn('number', 'Day');
+
+      data1.addRows(pytojsArr);
+
+      var options1 = {
+        hAxis: {
+          title: 'Number of Trusses'
+        },
+        vAxis: {
+          title: 'Harvest Day'
+        }
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('graph1'));
+
+      chart.draw(data1, options1);
+}
+</script>
+
+
+<!--Graph2-->
+<script type="text/javascript">
+
+        var pytojs = "{{pytojsgrowth}}";
+
+        // console.log('PyToJS : '+pytojs);
+        // console.log('PyToJS type : '+typeof pytojs);
+        var pytojsArray = eval(pytojs);
+        // console.log('Array Type : '+pytojsArray);
+
+
+  google.charts.load('current', {packages: ['corechart', 'line']});
+google.charts.setOnLoadCallback(drawBasic);
+
+function drawBasic() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'X');
+      data.addColumn('number', 'Day');
+
+      data.addRows(pytojsArray);
+
+      var options = {
+        hAxis: {
+          title: 'Global Radiation(MJ/m2/d)'
+        },
+        vAxis: {
+          title: 'Harvest Day'
+        }
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('graph2'));
+
+      chart.draw(data, options);
+}
+</script>
+
+</html>

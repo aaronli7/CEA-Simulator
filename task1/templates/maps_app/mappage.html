@@ -29,12 +29,14 @@
 
 <body>
   <div class="wrapper">
+
     <div class="sidebar">
+
     <div class="sidebar-wrapper">
       <div class="logo">
         <a href="" class="simple-text logo-mini">
           <div class="logo-img">
-            <img src="{% static "images/tom.jpg" %}"/>
+            <img src="{% static "images/logoimg.jpeg" %}"/>
           </div>
         </a>
         <a href="" class="simple-text logo-normal">
@@ -43,7 +45,7 @@
       </div>
       <div class="user">
         <div class="photo">
-          <img src="{% static "images/s.jpg" %}" />
+          <img src="{% static "images/s.jpeg" %}" />
         </div>
         <div class="info ">
           <a data-toggle="collapse" href="#collapseExample" class="collapsed">
@@ -56,14 +58,8 @@
 
               <li>
                 <a class="profile-dropdown" href="#pablo">
-                  <span class="sidebar-mini">AU</span>
-                  <span class="sidebar-normal">About Us</span>
-                </a>
-              </li>
-              <li>
-                <a class="profile-dropdown" href="#pablo">
-                  <span class="sidebar-mini">CU</span>
-                  <span class="sidebar-normal">Contact Us</span>
+                  <span class="sidebar-mini">MP</span>
+                  <span class="sidebar-normal">My Profile</span>
                 </a>
               </li>
             </ul>
@@ -78,14 +74,28 @@
           </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="{% url "grafana" %}">
-            <i class="fa fa-fw fa-line-chart"></i>
-            <p>Grafana</p>
+          <a class="nav-link" href="{% url "mappage" %}">
+            <i class="fa fa-toggle-right"></i>
+            <p>CROP GROWTH</p>
+          </a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="{% url "energymodel" %}">
+            <i class="fa fa-line-chart"></i>
+            <p>ENERGY MODEL</p>
+          </a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="{% url "energysupply" %}">
+            <i class="fa fa-industry"></i>
+            <p>ENERGY SUPPLY</p>
           </a>
         </li>
       </ul>
     </div>
   </div>
+
+
   <div class="main-panel">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg ">
