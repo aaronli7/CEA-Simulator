@@ -76,7 +76,7 @@ label{
 	min-height:848px;
 }
 .banner-3{
-	background:url(/static/images/3.jpg) no-repeat 0px 0px;
+	background:url(/static/images/ts.png) no-repeat 0px 0px;
 	background-size:cover;
 	-webkit-background-size:cover;
 	-moz-background-size:cover;
@@ -662,7 +662,7 @@ h6.w3l-style {
 }
 /*-- stats --*/
 .stats-info-agile {
-    background: url(/static/images/g6.jpg) no-repeat center;
+    background: url(/static/images/tom2.jpg) no-repeat center;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
