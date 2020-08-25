@@ -68,7 +68,7 @@ The porject was developed using Django, Pyhton, InfluxDB and MySQL.
 
 * Open the browser and go to
 
-> $ localhost:8000
+> localhost:8000
 
    
    
