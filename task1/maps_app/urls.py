@@ -17,6 +17,7 @@ urlpatterns = [
     url(r'chart/', views.chart, name='chart'),
     url(r'energymodel/', views.energymodel, name='energymodel'),
     url(r'energysupply/', views.energysupply, name='energysupply'),
+    url(r'^$', views.logout_view, name='logout_view'),
     url(r'page2/', views.page2, name='page2')
     # url(r'^$',views.table,name='table'),
 ]

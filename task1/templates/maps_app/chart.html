@@ -159,7 +159,7 @@
                                     <a class="dropdown-item" href="#">
                                         <i class="nc-icon nc-lock-circle-open"></i> Lock Screen
                                     </a>
-                                    <a href="#" class="dropdown-item text-danger">
+                                    <a href="{% url "logout_view" %}" class="dropdown-item text-danger">
                                         <i class="nc-icon nc-button-power"></i> Log out
                                     </a>
                                 </div>
@@ -228,126 +228,17 @@
 
     <!--
 
-
-
-
-
-
-<div class="fixed-plugin">
-    <div class="dropdown show-dropdown">
-        <a href="#" data-toggle="dropdown">
-            <i class="fa fa-cog fa-2x"> </i>
-        </a>
-
-        <ul class="dropdown-menu">
-			<li class="header-title"> Sidebar Style</li>
-            <li class="adjustments-line">
-                <a href="javascript:void(0)" class="switch-trigger">
-                    <p>Background Image</p>
-                    <label class="switch-image">
-                        <input type="checkbox" data-toggle="switch" checked="" data-on-color="info" data-off-color="info"><span class="toggle"></span>
-                    </label>
-                    <div class="clearfix"></div>
-                </a>
-            </li>
-            <li class="adjustments-line">
-                <a href="javascript:void(0)" class="switch-trigger">
-                    <p>Sidebar Mini</p>
-                    <label class="switch-mini">
-                        <input type="checkbox" data-toggle="switch" data-on-color="info" data-off-color="info">
-                        <span class="toggle"></span>
-                    </label>
-                    <div class="clearfix"></div>
-                </a>
-            </li>
-            <li class="adjustments-line">
-                <a href="javascript:void(0)" class="switch-trigger">
-                    <p>Fixed Navbar</p>
-                    <label class="switch-nav">
-                        <input type="checkbox" data-toggle="switch" data-on-color="info" data-off-color="info">
-                        <span class="toggle"></span>
-                    </label>
-                    <div class="clearfix"></div>
-                </a>
-            </li>
-            <li class="adjustments-line">
-                <a href="javascript:void(0)" class="switch-trigger background-color">
-                    <p>Filters</p>
-                    <div class="pull-right">
-                        <span class="badge filter badge-black" data-color="black"></span>
-                        <span class="badge filter badge-azure" data-color="azure"></span>
-                        <span class="badge filter badge-green" data-color="green"></span>
-                        <span class="badge filter badge-orange active" data-color="orange"></span>
-                        <span class="badge filter badge-red" data-color="red"></span>
-                        <span class="badge filter badge-purple" data-color="purple"></span>
-                    </div>
-                    <div class="clearfix"></div>
-                </a>
-            </li>
-            <li class="header-title">Sidebar Images</li>
-
-            <li class="active">
-                <a class="img-holder switch-trigger" href="javascript:void(0)">
-                    <img src="../assets/img/sidebar-1.jpg" alt="" />
-                </a>
-            </li>
-            <li>
-                <a class="img-holder switch-trigger" href="javascript:void(0)">
-                    <img src="../assets/img/sidebar-3.jpg" alt="" />
-                </a>
-            </li>
-            <li>
-                <a class="img-holder switch-trigger" href="javascript:void(0)">
-                    <img src="../assets/img/sidebar-4.jpg" alt="" />
-                </a>
-            </li>
-            <li>
-                <a class="img-holder switch-trigger" href="javascript:void(0)">
-                    <img src="../assets/img/sidebar-5.jpg" alt="" />
-                </a>
-            </li>
-
-            <li class="button-container">
-                <div>
-                    <a href="http://www.creative-tim.com/product/light-bootstrap-dashboard" target="_blank" class="btn btn-info btn-block">Get free demo!</a>
-                </div>
-            </li>
-
-            <li class="button-container">
-                <div>
-                    <a href="http://www.creative-tim.com/product/light-bootstrap-dashboard-pro" target="_blank" class="btn btn-warning btn-block btn-fill">Buy now!</a>
-                </div>
-            </li>
-
-            <li class="button-container">
-                <div>
-                    <a href="http://www.creative-tim.com/product/light-bootstrap-dashboard-pro/documentation/tutorial-components.html" target="_blank" class="btn btn-danger btn-block">Documentation</a>
-                </div>
-            </li>
-
-            <li class="header-title" id="sharrreTitle">Thank you for sharing!</li>
-
-            <li class="button-container">
-				<button id="twitter" class="btn btn-social btn-twitter btn-round sharrre"><i class="fa fa-twitter"></i> · 256</button>
-                <button id="facebook" class="btn btn-social btn-facebook btn-round sharrre"><i class="fa fa-facebook-square"> · 426</i></button>
-            </li>
-        </ul>
-    </div>
-</div>
- -->
 </body>
 <!--   Core JS Files   -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="{% static "js/jquery.3.2.1.min.js" %}" type="text/javascript"></script>
+<script src="{% static "js/popper.min.js" %}" type="text/javascript"></script>
+<script src="{%static "js/bootstrap.min.js" %}" type="text/javascript"></script>
 
-<!-- <script src="{%static "js/bootstrap.min.js" %}" type="text/javascript"></script> -->
+<script src="{%static "js/plugins/bootstrap-switch.js" %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
-<!--  Chartist Plugin  -->
-<!-- <script src="{%static "js/plugins/chartist.min.js" %}"></script>
-<script src="{%static "js/demo.js" %}"></script> -->
-<!-- <script src="{%static "js/iframe.js" %}" type="text/javascript"></script> -->
-<!-- <script src="https://unpkg.com/react@16.4.1/umd/react.production.min.js"></script> -->
-<!-- <script src="https://unpkg.com/react-dom@16.4.1/umd/react-dom.production.min.js"></script> -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script> -->
+
 
 <script type="text/javascript">
         var pytojs = "{{pytojsfruit}}";
@@ -410,10 +301,10 @@ function drawBasic() {
 
       var options = {
         hAxis: {
-          title: 'Global Radiation(MJ/m2/d)'
+          title: 'Harvest Day'
         },
         vAxis: {
-          title: 'Harvest Day'
+          title: 'Global Radiation(MJ/m2/d)'
         }
       };
 

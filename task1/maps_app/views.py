@@ -219,3 +219,7 @@ def register(request):
 
 def page2(request):
    return render(request, "maps_app/page2.html")
+
+def logout_view(request):
+   logout(request)
+   return render(request, "maps_app/index.html")
