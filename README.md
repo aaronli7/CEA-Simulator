@@ -4,6 +4,12 @@ This project is an indoor agriculture simulator that models the relationship of 
 
 ## Setup
 
+### Technologies Used
+* Front-end: HTML, CSS, JavaScript, AJAX
+*	Back-end: Python (Django)
+*	Databases: InfluxDB, MySQL
+
+
 ### Installation
 
 The porject was developed using Django, Pyhton, InfluxDB and MySQL.
@@ -25,7 +31,9 @@ The porject was developed using Django, Pyhton, InfluxDB and MySQL.
    
    >  $ pip install pandas</br>
    >  $ pip install numpy</br>
+   >  $ pip install mysqlclient</br>
    >  $ pip install pymysql</br>
+   >  $ pip install Ipython</br>
    >  $ pip install influxdb
 
 ### DataBase 
@@ -60,6 +68,29 @@ The porject was developed using Django, Pyhton, InfluxDB and MySQL.
 * Open the MySQL workbench and create a local server. Run the mysql server.
 * The deafult *auth_user* table can be used or new table can be created. If new table is created change the table name in task1/maps_app/models.py and task1/task1/settings.py files
 
+### Folder Structure & File Descriptions
+
+1. **influxdb/**
+    * dbinflux.py - This is used to pull the data from NREL website by using the API
+    * final1.csv - Latitude and Longitude information for all locations in USA
+
+2. **task1/**
+    * maps_app/
+        * models.py - contains the MySQL db table information
+        * sim.py & simulator.py - it executes the simulation
+        * urls.py - contains the path to the views
+        * views.py - contains all the backend code
+    * static/ - contains the webpage designs in css/ , fonts/, js/ and the images in images/ 
+    * task1/
+        * settings.py - OS Path, static file and database configurations
+    * templates/maps_app - it contains the webpages
+        * chart.html - chart is being displayed by Google’s Visualization API
+        * index.html - first page of the website
+        * mainpage.html - home page of the website (after user logged in)
+        * mappage.html - page where user is being asked for input
+        * table1.html & table2.html - table view of the graph that is being displayed
+
+
 ## Execution
 
 * Open the task1 folder and run the following command:
@@ -69,6 +100,17 @@ The porject was developed using Django, Pyhton, InfluxDB and MySQL.
 * Open the browser and go to
 
 > localhost:8000
+
+### WorkFlow
+
+1. User creates an account or logs in to the existing account.
+2. Parameters such as temperature, CO2, date, and location are selected by the user.
+3. These parameters are passed to the Crop Growth Simulator and three CSV files (username_distri.csv, username_fruitdev.csv, username_growth.csv) are generated.
+4. The CSV files are stored in influxDB
+5. The data is being passed as an input to the Google Visualization API.
+6. The output from the Google Visualization API is the graph that is being displayed.
+7. Responsive table is also being generated using the data
+
 
    
    
